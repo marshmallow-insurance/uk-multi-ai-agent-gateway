@@ -1,0 +1,47 @@
+---
+version: 1
+service:
+  name: uk-multi-ai-agent-gateway
+  lifecycle: pre-alpha
+  tier: essential
+  product: UK Multi
+  owner: core
+  language: Java
+  framework: Spring
+  description: 'Gateway for AI Agents service'
+  aliases:
+  properties:
+    penetration_testing: false
+    public_repository: false
+    product: multi
+    region: uk
+    type: service
+  repositories:
+    - name: marshmallow-insurance/uk-multi-ai-agent-gateway
+      path: "/"
+      provider: github
+  tools:
+    - name: Base Level Metrics
+      category: metrics
+      url: https://app.datadoghq.eu/dashboard/jt2-4i3-kxm/base-service-metrics?tpl_var_service=ai-agent-gateway-service&live=true
+      environment: Production
+    - name: Sentry
+      category: errors
+      url: https://sentry.io/organizations/marshmallow-insurance/projects/uk-multi-ai-agent-gateway?environment=cloud-local-dev
+      environment: Staging
+    - name: Sentry
+      category: errors
+      url: https://sentry.io/organizations/marshmallow-insurance/projects/uk-multi-ai-agent-gateway?environment=production
+      environment: Production
+    - name: DataDog
+      category: logs
+      url: https://app.datadoghq.eu/logs?query=env%3Astaging%20service%3Auk-multi-ai-agent-gateway
+      environment: Staging
+    - name: DataDog
+      category: logs
+      url: https://app.datadoghq.eu/logs?query=env%3Aproduction%20service%3Auk-multi-ai-agent-gateway
+      environment: Production
+    - name: incident.io
+      category: incidents
+      url: https://app.incident.io/eatmarshmallows/dashboard
+      environment: Production

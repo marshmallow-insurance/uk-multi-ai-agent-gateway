@@ -1,0 +1,31 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+    <appender name="NOOP_JSON" class="ch.qos.logback.core.FileAppender">
+        <!--
+        This appender primarily exists to test the compatibility of the LogstashEncoder with our Logback dependencies.
+        In the past, incompatibilities have caused deployment issues.
+        We need to use a FileAppender as the NOPAppender doesn't call the encoder.
+        -->
+        <file>/dev/null</file>
+        <append>true</append>
+        <immediateFlush>false</immediateFlush>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <springProfile name="!(cloud-local-dev | production)">
+        <root level="INFO">
+            <appender-ref ref="NOOP_JSON"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="cloud-local-dev,production">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE_JSON"/>
+        </root>
+    </springProfile>
+</configuration>

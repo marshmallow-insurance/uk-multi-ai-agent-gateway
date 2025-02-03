@@ -1,0 +1,57 @@
+version: 2
+registries:
+  docker-registry:
+    type: docker-registry
+    url: https://007126583757.dkr.ecr.eu-west-1.amazonaws.com
+    username: ${{secrets.DEPENDABOT_AWS_ACCESS_KEY}}
+    password: "${{secrets.DEPENDABOT_ECR_PASSWORD}}"
+  jfrog-artifactory:
+    type: maven-repository
+    url: https://marshmallow.jfrog.io/marshmallow/marshmallow-virtual
+    username: dependabot
+    password: "${{secrets.DEPENDABOT_ARTIFACTORY_PASSWORD}}"
+
+updates:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 99
+    reviewers:
+      - marshmallow-insurance/core
+    registries:
+      - jfrog-artifactory
+    groups:
+      non-critical-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "com.marshmallow:*-client"
+          - "org.springframework.*:*"
+          - "io.awspring.cloud:*"
+      spring-dependencies:
+        patterns:
+          - "org.springframework.*:*"
+          - "io.awspring.cloud:*"
+      marshmallow-dependencies:
+        patterns:
+          - "com.marshmallow:*-client"
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 99
+    reviewers:
+      - marshmallow-insurance/core
+    registries:
+      - docker-registry
+  - package-ecosystem: terraform
+    directory: "/terraform"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 99
+    reviewers:
+      - marshmallow-insurance/core
