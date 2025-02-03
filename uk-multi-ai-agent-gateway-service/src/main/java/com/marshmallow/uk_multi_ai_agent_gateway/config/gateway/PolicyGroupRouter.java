@@ -17,7 +17,7 @@ public class PolicyGroupRouter {
     private String policyGroupService;
 
     @Bean
-    public RouterFunction<ServerResponse> customerRoute() {
+    public RouterFunction<ServerResponse> policyGroupRoute() {
         return route("policyGroupRoute")
             .route(path("/internal/policy-groups/**"), http(policyGroupService))
             .build();
