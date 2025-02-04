@@ -15,17 +15,17 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.COOKIE;
 
 @Configuration
-public class CustomerRouter {
+public class QuoteMatchingRouter {
 
-    @Value("${services.customer}")
-    private String customerService;
+    @Value("${services.quote-matching}")
+    private String quoteMatchingService;
 
     @Bean
-    public RouterFunction<ServerResponse> customerRoute() {
-        return route("customerRoute")
+    public RouterFunction<ServerResponse> quoteMatchingRoute() {
+        return route("quoteMatchingRoute")
             .before(stripPrefix(1))
             .before(removeRequestHeader(AUTHORIZATION).andThen(removeRequestHeader(COOKIE)))
-            .route(path("/customer/**"), http(customerService))
+            .route(path("/quote-matching/**"), http(quoteMatchingService))
             .build();
     }
 

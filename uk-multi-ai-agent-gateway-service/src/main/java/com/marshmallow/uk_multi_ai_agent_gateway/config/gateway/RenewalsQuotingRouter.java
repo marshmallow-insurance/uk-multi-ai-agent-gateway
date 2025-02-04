@@ -15,17 +15,17 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.COOKIE;
 
 @Configuration
-public class CustomerRouter {
+public class RenewalsQuotingRouter {
 
-    @Value("${services.customer}")
-    private String customerService;
+    @Value("${services.renewals-quoting}")
+    private String renewalsQuotingService;
 
     @Bean
-    public RouterFunction<ServerResponse> customerRoute() {
-        return route("customerRoute")
+    public RouterFunction<ServerResponse> renewalsQuotingRoute() {
+        return route("renewalsQuotingRoute")
             .before(stripPrefix(1))
             .before(removeRequestHeader(AUTHORIZATION).andThen(removeRequestHeader(COOKIE)))
-            .route(path("/customer/**"), http(customerService))
+            .route(path("/renewals-quoting/**"), http(renewalsQuotingService))
             .build();
     }
 
