@@ -35,7 +35,7 @@ module "ai_agent_gateway" {
   datadog_disable_warn_log_monitor           = true
   datadog_disable_error_log_monitor          = true
   additional_tags                            = module.metadata.cost_allocation_tags
-  appmesh_backend_services                   = ["customer.local", "mta.local", "policy-group.local", "quote-matching-v2.local", "quoting.local", "renewals.local", "renewals-quoting.local"]
+  appmesh_backend_services                   = ["customer.local", "mta.local", "policy-group.local", "quote-matching-v2.local", "quoting.local", "renewals.local", "renewals-quoting.local", "vehicle-lookup.local"]
   environment_variables                      = []
   secret_names                               = []
 }
